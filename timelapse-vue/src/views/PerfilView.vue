@@ -37,6 +37,9 @@
             <input v-model="perfil.fechaNac" type="date" class="perfil-form__input" :disabled="!isEditing" />
           </div>
         </div>
+
+        <p v-if="error" style="color:#C85C5C; font-size:14px; text-align:center">{{ error }}</p>
+        <p v-if="success" style="color:#5CB85C; font-size:14px; text-align:center">Perfil actualizado</p>
       </section>
     </main>
   </div>
@@ -45,11 +48,41 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue'
 import AppHeader from '@/components/AppHeader.vue'
+import { getUsuario } from '@/services/auth'
+import { updateUsuario } from '@/services/usuario'
 
+const usuario = getUsuario()
 const isEditing = ref(false)
-const perfil = reactive({ nombre: '', email: '', password: '', fechaNac: '' })
+const error = ref('')
+const success = ref(false)
 
-function toggleEdit() {
-  isEditing.value = !isEditing.value
+const perfil = reactive({
+  nombre: usuario?.nombre || '',
+  email: usuario?.email || '',
+  password: '',
+  fechaNac: usuario?.fechaNac || ''
+})
+
+async function toggleEdit() {
+  if (!isEditing.value) {
+    isEditing.value = true
+    return
+  }
+
+  error.value = ''
+  success.value = false
+
+  try {
+    await updateUsuario({
+      nombre: perfil.nombre,
+      email: perfil.email,
+      contraseña: perfil.password || undefined,
+      fechaNac: perfil.fechaNac
+    })
+    success.value = true
+    isEditing.value = false
+  } catch (e: any) {
+    error.value = e.message
+  }
 }
 </script>
