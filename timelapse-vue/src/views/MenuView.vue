@@ -6,8 +6,8 @@
       <section class="card card--profile">
         <img src="@/assets/img/Perfil.png" alt="Perfil" class="card__profile-img" />
         <div class="card__profile-info">
-          <h2 class="card__title">Usuario</h2>
-          <p class="card__subtitle">correousuario@gmail.com</p>
+          <h2 class="card__title">{{ usuario?.nombre }}</h2>
+          <p class="card__subtitle">{{ usuario?.email }}</p>
         </div>
       </section>
 
@@ -66,9 +66,10 @@
 <script setup lang="ts">
 import { RouterLink, useRouter } from 'vue-router'
 import AppHeader from '@/components/AppHeader.vue'
-import { logout } from '@/services/auth'
+import { logout, getUsuario } from '@/services/auth'
 
 const router = useRouter()
+const usuario = getUsuario()
 
 function cerrarSesion() {
   logout()
