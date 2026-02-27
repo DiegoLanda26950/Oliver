@@ -49,10 +49,10 @@
 
       <section class="card card--menu">
         <nav class="menu-nav">
-          <RouterLink to="/" class="menu-nav__item menu-nav__item--danger">
+          <a href="#" class="menu-nav__item menu-nav__item--danger" @click.prevent="cerrarSesion">
             <img src="@/assets/img/salir.png" class="menu-nav__icon" alt="Salir" />
             Cerrar Sesión
-          </RouterLink>
+          </a>
           <a href="#" class="menu-nav__item menu-nav__item--danger">
             <img src="@/assets/img/Papelera.png" class="menu-nav__icon" alt="Eliminar" />
             Eliminar Cuenta
@@ -64,6 +64,14 @@
 </template>
 
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRouter } from 'vue-router'
 import AppHeader from '@/components/AppHeader.vue'
+import { logout } from '@/services/auth'
+
+const router = useRouter()
+
+function cerrarSesion() {
+  logout()
+  router.push('/')
+}
 </script>
