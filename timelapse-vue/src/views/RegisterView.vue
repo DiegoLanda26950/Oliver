@@ -23,10 +23,12 @@
             <input v-model="confirmPassword" type="password" class="form__input" placeholder="Repite tu contraseña" required />
           </div>
 
-          <p v-if="error" style="color:#C85C5C; font-size:14px; text-align:center">{{ error }}</p>
+          <p v-if="auth.error" style="color:#C85C5C; font-size:14px; text-align:center">
+            {{ auth.error }}
+          </p>
 
-          <button type="submit" class="btn btn--submit">
-            {{ loading ? 'Cargando...' : 'Registrarse' }}
+          <button type="submit" class="btn btn--submit" :disabled="auth.loading">
+            {{ auth.loading ? 'Cargando...' : 'Registrarse' }}
           </button>
           <RouterLink to="/" class="btn btn--cancel">Cancelar</RouterLink>
         </form>
@@ -44,30 +46,29 @@
 import { ref } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
 import AppHeader from '@/components/AppHeader.vue'
-import { register } from '@/services/auth'
+import { useAuthStore } from '@/stores/useAuthStore'
 
 const router = useRouter()
+const auth = useAuthStore()
+
 const nombre = ref('')
 const email = ref('')
 const password = ref('')
 const confirmPassword = ref('')
-const loading = ref(false)
-const error = ref('')
 
 async function handleRegister() {
-  error.value = ''
+  auth.clearError()
+
   if (password.value !== confirmPassword.value) {
-    error.value = 'Las contraseñas no coinciden'
-    return
+    // Esta validación es local, no necesita el store
+    return alert('Las contraseñas no coinciden')
   }
-  loading.value = true
+
   try {
-    await register(nombre.value, email.value, password.value)
+    await auth.register(nombre.value, email.value, password.value)
     router.push('/home')
-  } catch (e: any) {
-    error.value = e.message
-  } finally {
-    loading.value = false
+  } catch {
+    // El error ya queda en auth.error, se muestra en el template
   }
 }
 </script>
