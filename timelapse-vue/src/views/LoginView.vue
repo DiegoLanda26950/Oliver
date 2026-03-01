@@ -4,29 +4,32 @@
 
     <main class="page__main page__main--login">
       <section class="card card--login">
+
         <h1 class="login__title">BIENVENIDO A<br />TIMELAPSE</h1>
-        <p class="login__subtitle">Inicia sesión para acceder a tus cápsulas del tiempo</p>
+        <p class="login__subtitle">Inicia sesion para acceder a tus capsulas del tiempo</p>
 
         <form class="form form--login" @submit.prevent="handleLogin">
           <div class="form__group">
-            <label for="email" class="form__label">Correo electrónico</label>
-            <input v-model="form.email" type="email" id="email" class="form__input" placeholder="tu@email.com" required />
+            <label class="form__label">Correo electronico</label>
+            <input v-model="email" type="email" class="form__input" placeholder="tu@email.com" required />
           </div>
           <div class="form__group">
-            <label for="password" class="form__label">Contraseña</label>
-            <input v-model="form.password" type="password" id="password" class="form__input" placeholder="••••••••" required />
+            <label class="form__label">Contrasena</label>
+            <input v-model="password" type="password" class="form__input" placeholder="..." required />
           </div>
-          <a href="#" class="login__forgot">¿Olvidaste tu contraseña?</a>
-          <button type="submit" class="btn btn--submit btn--login">Iniciar sesión</button>
+
+          <p v-if="auth.error" style="color:#C85C5C; font-size:14px; text-align:center">
+            {{ auth.error }}
+          </p>
+
+          <button type="submit" class="btn btn--submit btn--login" :disabled="auth.loading">
+            {{ auth.loading ? 'Cargando...' : 'Iniciar sesion' }}
+          </button>
         </form>
 
-        <div class="login__divider">
-          <span class="login__divider-text">o</span>
-        </div>
-
         <p class="login__register">
-          ¿No tienes cuenta?
-          <RouterLink to="/registro" class="link">Regístrate aquí</RouterLink>
+          No tienes cuenta?
+          <RouterLink to="/registro" class="link">Registrate aqui</RouterLink>
         </p>
       </section>
     </main>
@@ -36,15 +39,24 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { ref } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
-import AppHeader from '@/components/AppHeader.vue'
-import AppFooter from '@/components/AppFooter.vue'
+
+import { useAuthStore } from '@/stores/useAuthStore'
 
 const router = useRouter()
-const form = reactive({ email: '', password: '' })
+const auth = useAuthStore()
 
-function handleLogin() {
-  router.push('/home')
+const email = ref('')
+const password = ref('')
+
+async function handleLogin() {
+  auth.clearError()
+  try {
+    await auth.login(email.value, password.value)
+    router.push('/home')
+  } catch {
+    // El error ya queda en auth.error, no hace falta hacer nada aqui
+  }
 }
 </script>
