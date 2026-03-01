@@ -6,3 +6,6 @@ docker-compose up -d
 
 docker ps
 
+Gmail admin: ana.perez@email.com
+
+contraseña: contraseña123
