@@ -1,0 +1,35 @@
+services:
+  # Base de Datos
+  db:
+    image: mysql:8.0
+    container_name: oliver_db
+    restart: always
+    environment:
+      MYSQL_DATABASE: oliver_db
+      MYSQL_ROOT_PASSWORD: root_password
+    ports:
+      - "3306:3306"
+
+  # Backend (.NET 8)
+  api:
+    build:
+      context: ./TimelapseAPI
+      dockerfile: Dockerfile
+    container_name: oliver_api
+    depends_on:
+      - db
+    ports:
+      - "5000:5000"
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=db;Database=oliver_db;User=root;Password=root_password;
+
+  # Frontend (Vue)
+  frontend:
+    build:
+      context: ./timelapse-vue
+      dockerfile: Dockerfile
+    container_name: oliver_web
+    ports:
+      - "8080:80"
+    depends_on:
+      - api

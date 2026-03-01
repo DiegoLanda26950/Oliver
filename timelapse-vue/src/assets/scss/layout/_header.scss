@@ -54,4 +54,29 @@
             transform: translateY(-2px);             // Efecto de "levantar" el botón
         }
     }
+
+    // Elemento: right (contenedor del lado derecho)
+    &__right {
+        display: flex;
+        align-items: center;
+        gap: $spacing-sm;
+    }
+
+    // Elemento: admin-btn
+    &__admin-btn {
+        background: rgba(255, 255, 255, 0.15);
+        color: $color-background;
+        padding: 8px 18px;
+        border-radius: $border-radius-md;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        transition: all 0.3s;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.28);
+            transform: translateY(-1px);
+        }
+    }
 }

@@ -125,6 +125,33 @@ namespace TimelapseAPI.Controllers
             }
         }
 
+        // PATCH: api/Usuario/5/admin
+        // Body: true  → hace admin
+        // Body: false → quita admin
+        [HttpPatch("{id}/admin")]
+        public async Task<IActionResult> SetAdmin(int id, [FromBody] bool esAdmin)
+        {
+            try
+            {
+                var usuario = await _usuarioService.GetByIdAsync(id);
+                if (usuario == null)
+                    return NotFound($"Usuario con ID {id} no encontrado.");
+
+                usuario.EsAdmin = esAdmin;
+                await _usuarioService.UpdateAsync(usuario);
+
+                return Ok(new { mensaje = $"Usuario {id} — EsAdmin actualizado a {esAdmin}." });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error interno: {ex.Message}");
+            }
+        }
+
         // DELETE: api/Usuario/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)

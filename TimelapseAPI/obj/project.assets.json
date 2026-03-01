@@ -5126,11 +5126,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\PC\\Desktop\\Timelapse\\TimelapseAPI\\TimelapseAPI.csproj",
+      "projectUniqueName": "C:\\Users\\PC\\Desktop\\TIMELAPSE\\TimelapseAPI\\TimelapseAPI.csproj",
       "projectName": "TimelapseAPI",
-      "projectPath": "C:\\Users\\PC\\Desktop\\Timelapse\\TimelapseAPI\\TimelapseAPI.csproj",
+      "projectPath": "C:\\Users\\PC\\Desktop\\TIMELAPSE\\TimelapseAPI\\TimelapseAPI.csproj",
       "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\PC\\Desktop\\Timelapse\\TimelapseAPI\\obj\\",
+      "outputPath": "C:\\Users\\PC\\Desktop\\TIMELAPSE\\TimelapseAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -5201,5 +5201,13 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.414/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problema al leer el archivo de caché C:\\Users\\PC\\Desktop\\TIMELAPSE\\TimelapseAPI\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

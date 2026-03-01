@@ -145,7 +145,10 @@ C:\Users\PC\Desktop\Timelapse\TimelapseAPI\obj\Debug\net8.0\TimelapseAPI.Assembl
 C:\Users\PC\Desktop\Timelapse\TimelapseAPI\obj\Debug\net8.0\TimelapseAPI.csproj.CoreCompileInputs.cache
 C:\Users\PC\Desktop\Timelapse\TimelapseAPI\obj\Debug\net8.0\TimelapseAPI.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\PC\Desktop\Timelapse\TimelapseAPI\obj\Debug\net8.0\TimelapseAPI.MvcApplicationPartsAssemblyInfo.cache
+<<<<<<< HEAD
 C:\Users\PC\Desktop\Timelapse\TimelapseAPI\obj\Debug\net8.0\TimelapseAPI.sourcelink.json
+=======
+>>>>>>> Amigos
 C:\Users\PC\Desktop\Timelapse\TimelapseAPI\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\PC\Desktop\Timelapse\TimelapseAPI\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\PC\Desktop\Timelapse\TimelapseAPI\obj\Debug\net8.0\staticwebassets\msbuild.TimelapseAPI.Microsoft.AspNetCore.StaticWebAssets.props

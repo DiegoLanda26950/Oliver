@@ -8,17 +8,15 @@ import {
 } from '@/services/auth'
 
 export const useAuthStore = defineStore('auth', () => {
-  // --- Estado ---
-  const usuario = ref(getUsuario()) // Inicializa desde localStorage si ya habia sesion
+  const usuario = ref(getUsuario())
   const loading = ref(false)
   const error = ref('')
 
-  // --- Getters ---
   const isLoggedIn = computed(() => !!usuario.value)
   const nombre = computed(() => usuario.value?.nombre ?? '')
   const email = computed(() => usuario.value?.email ?? '')
+  const esAdmin = computed(() => usuario.value?.esAdmin ?? false)
 
-  // --- Acciones ---
   async function login(emailVal: string, password: string) {
     loading.value = true
     error.value = ''
@@ -55,5 +53,5 @@ export const useAuthStore = defineStore('auth', () => {
     error.value = ''
   }
 
-  return { usuario, loading, error, isLoggedIn, nombre, email, login, register, logout, clearError }
+  return { usuario, loading, error, isLoggedIn, nombre, email, esAdmin, login, register, logout, clearError }
 })

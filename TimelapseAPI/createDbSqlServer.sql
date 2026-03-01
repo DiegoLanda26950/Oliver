@@ -1,6 +1,6 @@
 CREATE DATABASE TimelapseDB;
 
-SELECT name, database_id, create database_id
+SELECT name, database_id, create_date
 FROM sys.databases 
 WHERE name = 'TimelapseDB';
 
@@ -10,7 +10,8 @@ CREATE TABLE Usuario (
     Id_Usuario INT IDENTITY(1,1) PRIMARY KEY,
     Nombre NVARCHAR(100),
     Email NVARCHAR(150) NOT NULL UNIQUE,
-    Contraseña NVARCHAR(255) NOT NULL
+    Contraseña NVARCHAR(255) NOT NULL,
+    es_admin BIT NOT NULL DEFAULT 0
 );
 
 -- Tabla Capsula
@@ -80,18 +81,22 @@ CREATE TABLE Amistad (
     CONSTRAINT FK_Amistad_Usuario2 FOREIGN KEY (Id_Usuario2) REFERENCES Usuario(Id_Usuario)
 );
 
--- Tabla Usuario
-INSERT INTO Usuario (Nombre, Email, Contraseña) VALUES
-('Ana Pérez', 'ana.perez@email.com', 'contraseña123'),
-('Luis Gómez', 'luis.gomez@email.com', 'pass456'),
-('María López', 'maria.lopez@email.com', 'abc123'),
-('Carlos Sánchez', 'carlos.sanchez@email.com', 'clave789');
+-- =============================================
+-- Datos de prueba
+-- =============================================
+
+-- Tabla Usuario (el primero es admin de ejemplo)
+INSERT INTO Usuario (Nombre, Email, Contraseña, es_admin) VALUES
+('Ana Pérez',      'ana.perez@email.com',      'contraseña123', 1),
+('Luis Gómez',     'luis.gomez@email.com',     'pass456',       0),
+('María López',    'maria.lopez@email.com',    'abc123',        0),
+('Carlos Sánchez', 'carlos.sanchez@email.com', 'clave789',      0);
 
 -- Tabla Capsula
 INSERT INTO Capsula (Titulo, Descripcion, Fecha_Creacion, Fecha_Apertura, Estado, Visibilidad) VALUES
-('Capsula del Tiempo 2023', 'Capsula con recuerdos del 2023', '2023-01-01', '2033-01-01', 'cerrada', 'privada'),
-('Capsula Escolar', 'Capsula con trabajos del colegio', '2022-09-01', '2025-09-01', 'cerrada', 'publica'),
-('Capsula Familiar', 'Recuerdos familiares', '2021-05-10', '2031-05-10', 'cerrada', 'privada');
+('Capsula del Tiempo 2023', 'Capsula con recuerdos del 2023',  '2023-01-01', '2033-01-01', 'cerrada', 'privada'),
+('Capsula Escolar',          'Capsula con trabajos del colegio','2022-09-01', '2025-09-01', 'cerrada', 'publica'),
+('Capsula Familiar',         'Recuerdos familiares',           '2021-05-10', '2031-05-10', 'cerrada', 'privada');
 
 -- Tabla Usuario_Capsula
 INSERT INTO Usuario_Capsula (Id_Usuario, Id_Capsula, Rol) VALUES
@@ -103,21 +108,21 @@ INSERT INTO Usuario_Capsula (Id_Usuario, Id_Capsula, Rol) VALUES
 
 -- Tabla Contenido
 INSERT INTO Contenido (Tipo, Contenido, Fecha_Subida, Id_Capsula) VALUES
-('texto', 'Querido yo del futuro, espero que estés bien.', '2023-01-01', 1),
-('imagen', 'foto_graduacion.jpg', '2022-09-05', 2),
-('video', 'video_vacaciones.mp4', '2021-05-15', 3);
+('texto',  'Querido yo del futuro, espero que estés bien.', '2023-01-01', 1),
+('imagen', 'foto_graduacion.jpg',                           '2022-09-05', 2),
+('video',  'video_vacaciones.mp4',                          '2021-05-15', 3);
 
 -- Tabla Comentario
 INSERT INTO Comentario (Texto, Fecha_Comentario, Id_Usuario, Id_Capsula) VALUES
-('Qué recuerdos tan bonitos!', '2023-01-02', 2, 1),
-('Me encantó esta idea', '2022-09-06', 3, 2),
-('No puedo esperar a abrirla', '2021-05-16', 1, 3);
+('Qué recuerdos tan bonitos!',    '2023-01-02', 2, 1),
+('Me encantó esta idea',          '2022-09-06', 3, 2),
+('No puedo esperar a abrirla',    '2021-05-16', 1, 3);
 
 -- Tabla Notificacion
 INSERT INTO Notificacion (Tipo, Mensaje, Fecha_Creacion, Leida, Id_Usuario, Id_Capsula) VALUES
-('info', 'Has sido agregado a la capsula del tiempo 2023', '2023-01-01', 0, 2, 1),
-('alerta', 'Tu capsula escolar se abrirá pronto', '2025-08-30', 0, 3, 2),
-('info', 'Nuevo contenido en la capsula familiar', '2021-05-15', 1, 1, 3);
+('info',   'Has sido agregado a la capsula del tiempo 2023', '2023-01-01', 0, 2, 1),
+('alerta', 'Tu capsula escolar se abrirá pronto',            '2025-08-30', 0, 3, 2),
+('info',   'Nuevo contenido en la capsula familiar',         '2021-05-15', 1, 1, 3);
 
 -- Tabla Amistad
 INSERT INTO Amistad (Id_Usuario1, Id_Usuario2, Estado) VALUES
@@ -127,14 +132,14 @@ INSERT INTO Amistad (Id_Usuario1, Id_Usuario2, Estado) VALUES
 (3, 4, 'aceptada');
 
 
+-- =============================================
+-- DROP TABLES (usar solo para resetear)
+-- =============================================
 
--- DROPTABLES
-
-
-DROP TABLE IF EXISTS Amistad;
-DROP TABLE IF EXISTS Notificacion;
-DROP TABLE IF EXISTS Comentario;
-DROP TABLE IF EXISTS Contenido;
-DROP TABLE IF EXISTS Usuario_Capsula;
-DROP TABLE IF EXISTS Capsula;
-DROP TABLE IF EXISTS Usuario;
+-- DROP TABLE IF EXISTS Amistad;
+-- DROP TABLE IF EXISTS Notificacion;
+-- DROP TABLE IF EXISTS Comentario;
+-- DROP TABLE IF EXISTS Contenido;
+-- DROP TABLE IF EXISTS Usuario_Capsula;
+-- DROP TABLE IF EXISTS Capsula;
+-- DROP TABLE IF EXISTS Usuario;

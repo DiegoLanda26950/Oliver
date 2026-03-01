@@ -12,18 +12,25 @@
       Iniciar sesión
     </RouterLink>
 
-    <RouterLink v-if="variant === 'app'" to="/menu">
-      <img
-        src="@/assets/img/Perfil-removebg-preview.png"
-        alt="Perfil"
-        class="header__profile"
-      />
-    </RouterLink>
+    <div v-if="variant === 'app'" class="header__right">
+      <RouterLink v-if="auth.esAdmin" to="/admin" class="header__admin-btn">
+        ▦ Admin
+      </RouterLink>
+
+      <RouterLink to="/menu">
+        <img
+          src="@/assets/img/Perfil-removebg-preview.png"
+          alt="Perfil"
+          class="header__profile"
+        />
+      </RouterLink>
+    </div>
   </header>
 </template>
 
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
+import { useAuthStore } from '@/stores/useAuthStore'
 
 interface Props {
   variant?: 'public' | 'app'
@@ -34,4 +41,6 @@ withDefaults(defineProps<Props>(), {
   variant: 'app',
   logoLink: '/home'
 })
+
+const auth = useAuthStore()
 </script>

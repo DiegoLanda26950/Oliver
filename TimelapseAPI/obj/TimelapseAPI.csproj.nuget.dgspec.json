@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\PC\\Desktop\\Timelapse\\TimelapseAPI\\TimelapseAPI.csproj": {}
+    "C:\\Users\\PC\\Desktop\\TIMELAPSE\\TimelapseAPI\\TimelapseAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\PC\\Desktop\\Timelapse\\TimelapseAPI\\TimelapseAPI.csproj": {
+    "C:\\Users\\PC\\Desktop\\TIMELAPSE\\TimelapseAPI\\TimelapseAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PC\\Desktop\\Timelapse\\TimelapseAPI\\TimelapseAPI.csproj",
+        "projectUniqueName": "C:\\Users\\PC\\Desktop\\TIMELAPSE\\TimelapseAPI\\TimelapseAPI.csproj",
         "projectName": "TimelapseAPI",
-        "projectPath": "C:\\Users\\PC\\Desktop\\Timelapse\\TimelapseAPI\\TimelapseAPI.csproj",
+        "projectPath": "C:\\Users\\PC\\Desktop\\TIMELAPSE\\TimelapseAPI\\TimelapseAPI.csproj",
         "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PC\\Desktop\\Timelapse\\TimelapseAPI\\obj\\",
+        "outputPath": "C:\\Users\\PC\\Desktop\\TIMELAPSE\\TimelapseAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config"
