@@ -41,8 +41,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
-import AppHeader from '@/components/AppHeader.vue'
-import AppFooter from '@/components/AppFooter.vue'
+
 import { useAuthStore } from '@/stores/useAuthStore'
 
 const router = useRouter()

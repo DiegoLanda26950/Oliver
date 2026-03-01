@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TimelapseAPI.Models;
-using TimelapseAPI.Repositories;
 
 namespace TimelapseAPI.Services
 {
@@ -13,5 +11,8 @@ namespace TimelapseAPI.Services
         Task<UsuarioCapsula> CreateAsync(UsuarioCapsula usuarioCapsula);
         Task<UsuarioCapsula?> UpdateAsync(UsuarioCapsula usuarioCapsula);
         Task<bool> DeleteAsync(int id);
+
+        // Nuevo: devuelve las cápsulas de un usuario concreto
+        Task<List<Capsula>> GetCapsulasByUsuarioIdAsync(int idUsuario);
     }
 }

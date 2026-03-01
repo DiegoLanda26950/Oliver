@@ -3,13 +3,23 @@
     <AppHeader variant="app" />
 
     <main class="page__main page__main--capsulas">
-      <section class="capsulas-list">
+      <p v-if="store.loading" style="text-align:center; color:#697C9F">Cargando cápsulas...</p>
+
+      <p v-else-if="store.error" style="text-align:center; color:#C85C5C">
+        {{ store.error }}
+      </p>
+
+      <p v-else-if="store.capsulas.length === 0" style="text-align:center; color:#697C9F">
+        No tienes cápsulas aún. ¡Crea una!
+      </p>
+
+      <section v-else class="capsulas-list">
         <CapsuleItem
-          v-for="capsula in capsulas"
-          :key="capsula.id"
-          :title="capsula.title"
-          :date="capsula.date"
-          :to="`/capsula/${capsula.id}`"
+          v-for="capsula in store.capsulas"
+          :key="capsula.idCapsula"
+          :title="capsula.titulo"
+          :date="formatFecha(capsula.fechaApertura)"
+          :to="`/capsula/${capsula.idCapsula}`"
         />
       </section>
     </main>
@@ -19,19 +29,24 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue'
 import AppHeader from '@/components/AppHeader.vue'
 import BottomNav from '@/components/BottomNav.vue'
 import CapsuleItem from '@/components/CapsuleItem.vue'
+import { useCapsulaStore } from '@/stores/useCapsulaStore'
 
-interface Capsula {
-  id: number
-  title: string
-  date: string
+const store = useCapsulaStore()
+
+onMounted(() => {
+  store.fetchCapsulas()
+})
+
+function formatFecha(fecha: string): string {
+  if (!fecha) return ''
+  return new Date(fecha).toLocaleDateString('es-ES', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric'
+  })
 }
-
-const capsulas: Capsula[] = [
-  { id: 1, title: 'Nombre Cápsula', date: 'Fecha Apertura' },
-  { id: 2, title: 'Nombre Cápsula', date: 'Fecha Apertura' },
-  { id: 3, title: 'Nombre Cápsula', date: 'Fecha Apertura' }
-]
 </script>

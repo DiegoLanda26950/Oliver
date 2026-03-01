@@ -12,10 +12,14 @@ namespace TimelapseAPI.Controllers
     public class UsuarioCapsulaController : ControllerBase
     {
         private readonly IUsuarioCapsulaService _usuarioCapsulaService;
+        private readonly ICapsulaService _capsulaService;
 
-        public UsuarioCapsulaController(IUsuarioCapsulaService usuarioCapsulaService)
+        public UsuarioCapsulaController(
+            IUsuarioCapsulaService usuarioCapsulaService,
+            ICapsulaService capsulaService)
         {
             _usuarioCapsulaService = usuarioCapsulaService;
+            _capsulaService = capsulaService;
         }
 
         [HttpGet]
@@ -31,6 +35,58 @@ namespace TimelapseAPI.Controllers
             var item = await _usuarioCapsulaService.GetByIdAsync(id);
             if (item == null) return NotFound();
             return Ok(item);
+        }
+
+        // GET api/UsuarioCapsula/usuario/5/capsulas
+        // Devuelve solo las cápsulas del usuario con idUsuario = 5
+        [HttpGet("usuario/{idUsuario}/capsulas")]
+        public async Task<ActionResult<List<Capsula>>> GetCapsulasByUsuario(int idUsuario)
+        {
+            try
+            {
+                var capsulas = await _usuarioCapsulaService.GetCapsulasByUsuarioIdAsync(idUsuario);
+                return Ok(capsulas);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { mensaje = ex.Message });
+            }
+        }
+
+        // POST api/UsuarioCapsula/capsulas/crear
+        // Crea la cápsula Y el registro UsuarioCapsula en un solo paso
+        [HttpPost("capsulas/crear")]
+        public async Task<ActionResult<Capsula>> CrearCapsulaParaUsuario([FromBody] CrearCapsulaConUsuarioDTO dto)
+        {
+            try
+            {
+                // 1. Crear la cápsula
+                var capsula = new Capsula
+                {
+                    Titulo = dto.Titulo,
+                    Descripcion = dto.Descripcion,
+                    FechaCreacion = dto.FechaCreacion,
+                    FechaApertura = dto.FechaApertura,
+                    Estado = dto.Estado,
+                    Visibilidad = dto.Visibilidad
+                };
+                await _capsulaService.AddAsync(capsula);
+
+                // 2. Vincular la cápsula al usuario en UsuarioCapsula
+                var usuarioCapsula = new UsuarioCapsula
+                {
+                    IdUsuario = dto.IdUsuario,
+                    IdCapsula = capsula.IdCapsula,
+                    Rol = "propietario"
+                };
+                await _usuarioCapsulaService.CreateAsync(usuarioCapsula);
+
+                return Ok(capsula);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { mensaje = ex.Message });
+            }
         }
 
         [HttpPost]
@@ -80,5 +136,16 @@ namespace TimelapseAPI.Controllers
             if (!result) return NotFound(new { mensaje = "No se encontró el registro con ese ID." });
             return NoContent();
         }
+    }
+
+    public class CrearCapsulaConUsuarioDTO
+    {
+        public int IdUsuario { get; set; }
+        public string Titulo { get; set; } = string.Empty;
+        public string Descripcion { get; set; } = string.Empty;
+        public DateTime FechaCreacion { get; set; }
+        public DateTime FechaApertura { get; set; }
+        public string Estado { get; set; } = string.Empty;
+        public string Visibilidad { get; set; } = string.Empty;
     }
 }
