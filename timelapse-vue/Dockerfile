@@ -9,12 +9,16 @@ COPY package*.json ./
 # Instalamos todas las dependencias
 RUN npm install
 
-# SOLUCIÓN: Instalamos npm-run-all de forma global para que el comando 'run-p' esté disponible
+# Instalamos npm-run-all de forma global para que el comando 'run-p' esté disponible
 RUN npm install -g npm-run-all
 
 COPY . .
 
-# Ahora 'run-p' será reconocido
+# URL del API inyectada en tiempo de build (desde docker-compose args)
+ARG VITE_API_URL=http://localhost:5000/api
+ENV VITE_API_URL=$VITE_API_URL
+
+# Ahora 'run-p' será reconocido y VITE_API_URL estará disponible para Vite
 RUN npm run build
 
 FROM nginx:stable-alpine AS production-stage
