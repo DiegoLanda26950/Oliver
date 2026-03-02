@@ -72,6 +72,26 @@
   background: rgb(14.0487804878, 29.2682926829, 57.9512195122);
   transform: translateY(-2px);
 }
+.header__right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.header__admin-btn {
+  background: rgba(255, 255, 255, 0.15);
+  color: #F0F0F0;
+  padding: 8px 18px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s;
+}
+.header__admin-btn:hover {
+  background: rgba(255, 255, 255, 0.28);
+  transform: translateY(-1px);
+}
 
 .footer {
   background: #3A4156;
@@ -1167,6 +1187,13 @@
   50% {
     opacity: 0.4;
   }
+}
+.header--admin {
+  background-color: #2E7D4F;
+}
+
+.footer--admin {
+  background-color: #2E7D4F;
 }
 
 /*# sourceMappingURL=styles.css.map */
