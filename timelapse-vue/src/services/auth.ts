@@ -1,5 +1,4 @@
-// URL base de la API, apunta a un servidor local en el puerto 7171
-const API_URL = 'https://localhost:7171/api'
+const API_URL = 'http://localhost:5000/api'
 
 export async function login(email: string, password: string) {
   // Le preguntamos a la API si existe algún usuario con ese email

@@ -1,4 +1,4 @@
-const API_URL = 'https://localhost:7171/api'
+const API_URL = 'http://localhost:5000/api'
 
 export interface Amistad {
   idAmistad: number

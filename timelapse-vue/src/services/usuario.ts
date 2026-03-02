@@ -1,6 +1,6 @@
 import { getUsuario } from '@/services/auth'
 
-const API_URL = 'https://localhost:7171/api'
+const API_URL = 'http://localhost:5000/api'
 
 export async function updateUsuario(datos: {
   nombre: string

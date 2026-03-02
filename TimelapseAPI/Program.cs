@@ -14,15 +14,22 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// CORS
+//Configuracion CORS
+
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowVueApp",
-        policy => policy
-            .WithOrigins("http://localhost:5173", "https://localhost:5173")
-            .AllowAnyHeader()
-            .AllowAnyMethod()
-            .AllowCredentials());
+    options.AddPolicy("AllowVueApp", policy =>
+    {
+        policy.WithOrigins(
+                "http://localhost:8080",   // Frontend Docker (HTTP)
+                "https://localhost:8080",  // Frontend Docker (HTTPS)
+                "http://localhost:5173",   // Frontend Dev (HTTP)
+                "https://localhost:5173"   // Frontend Dev (HTTPS)
+              )
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
 });
 
 // Repositories
