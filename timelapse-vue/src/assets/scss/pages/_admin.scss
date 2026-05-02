@@ -1,0 +1,419 @@
+// ─── ADMIN PAGE LAYOUT ────────────────────────────────────────
+// Reutiliza .page y .page__main del reset, solo añade lo específico
+
+.page--admin {
+  // Hereda todo de .page (fondo, font-family, flex-column, min-height)
+}
+
+.page__main--admin {
+  max-width: 900px !important; // Más ancho que las páginas normales para las tablas
+  gap: $spacing-lg;
+}
+
+// ─── ADMIN HEADER ─────────────────────────────────────────────
+// Extiende .header normal, solo cambia el color de fondo a verde
+
+.header--admin {
+  background: #2E7D4F; // Verde oscuro, distinto pero no estridente
+
+  .header__logo:hover {
+    transform: scale(1.05);
+  }
+}
+
+.header__admin-badge {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+  font-size: $font-size-small;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: $border-radius-sm;
+  letter-spacing: 0.5px;
+}
+
+.header__btn--admin {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.25);
+  }
+}
+
+// ─── PAGE HEADER ──────────────────────────────────────────────
+.admin-page-header {
+  margin-bottom: $spacing-xs;
+
+  &__title {
+    font-size: $font-size-xlarge;
+    font-weight: 700;
+    color: $color-primary;
+    margin-bottom: 4px;
+  }
+
+  &__sub {
+    font-size: $font-size-small;
+    color: $color-secondary;
+  }
+}
+
+// ─── STAT CARDS ───────────────────────────────────────────────
+.admin-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: $spacing-md;
+
+  @media (max-width: 700px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.admin-stat-card {
+  background: $color-background;
+  border-radius: $border-radius-lg;
+  padding: $spacing-lg;
+  box-shadow: $shadow-sm;
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+  transition: box-shadow 0.2s;
+
+  &:hover {
+    box-shadow: $shadow-md;
+  }
+
+  &__icon {
+    font-size: 26px;
+    min-width: 36px;
+    text-align: center;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__value {
+    font-size: $font-size-xlarge;
+    font-weight: 700;
+    color: $color-primary;
+    line-height: 1.1;
+  }
+
+  &__label {
+    font-size: $font-size-small;
+    color: $color-secondary;
+    margin-top: 3px;
+  }
+}
+
+// ─── PANEL (card wrapper) ─────────────────────────────────────
+.card--admin-panel {
+  padding: $spacing-lg;
+  text-align: left;
+}
+
+.admin-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $spacing-md;
+}
+
+.admin-panel__title {
+  font-size: $font-size-large;
+  font-weight: 700;
+  color: $color-primary;
+}
+
+.admin-panel__action {
+  font-size: $font-size-small;
+  color: $color-secondary;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s;
+
+  &:hover {
+    color: $color-primary;
+  }
+}
+
+// ─── GRIDS ────────────────────────────────────────────────────
+.admin-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-lg;
+
+  @media (max-width: 700px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ─── TABLE ────────────────────────────────────────────────────
+.admin-table-wrap {
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: $font-size-small;
+  font-family: $font-family;
+
+  thead th {
+    text-align: left;
+    color: $color-secondary;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 0 $spacing-sm $spacing-sm $spacing-sm;
+    border-bottom: 2px solid $color-accent;
+  }
+
+  tbody tr {
+    border-bottom: 1px solid $color-accent;
+    transition: background 0.15s;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background: lighten($color-accent, 5%);
+    }
+  }
+
+  tbody td {
+    padding: $spacing-sm;
+    color: $color-dark;
+    vertical-align: middle;
+  }
+
+  &__user {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    color: $color-primary;
+    font-weight: 600;
+  }
+
+  &__avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  &__muted {
+    color: $color-secondary !important;
+    font-size: 12px !important;
+  }
+
+  &__btn {
+    background: transparent;
+    border: 1px solid $color-accent;
+    color: $color-secondary;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 2px 10px;
+    border-radius: $border-radius-sm;
+    transition: all 0.2s;
+
+    &:hover {
+      background: $color-accent;
+      color: $color-primary;
+    }
+  }
+}
+
+// ─── BADGES ───────────────────────────────────────────────────
+.admin-badge {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+
+  &--green  { color: #2E7D4F; background: rgba(46, 125, 79, 0.12); }
+  &--gray   { color: $color-secondary; background: rgba($color-secondary, 0.12); }
+  &--danger { color: $color-danger; background: rgba($color-danger, 0.12); }
+  &--blue   { color: $color-primary; background: rgba($color-primary, 0.1); }
+}
+
+// ─── CAPSULES LIST ────────────────────────────────────────────
+// Reutiliza .capsula-item del proyecto, solo ajusta el gap del contenedor
+
+.admin-capsules-list {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+
+  // El .capsula-item ya tiene todo el estilo del proyecto
+  .capsula-item {
+    box-shadow: none;
+    border: 1px solid $color-accent;
+    padding: $spacing-sm $spacing-md;
+
+    &:hover {
+      box-shadow: $shadow-sm;
+    }
+  }
+}
+
+// ─── REPORTS ──────────────────────────────────────────────────
+.admin-reports {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.admin-report-item {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  padding: $spacing-sm $spacing-md;
+  border-radius: $border-radius-md;
+  border: 1px solid rgba($color-danger, 0.2);
+  background: rgba($color-danger, 0.04);
+  transition: border-color 0.2s;
+
+  &:hover {
+    border-color: rgba($color-danger, 0.4);
+  }
+
+  &__icon {
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+  }
+
+  &__title {
+    font-size: $font-size-base;
+    color: $color-dark;
+    font-weight: 600;
+  }
+
+  &__meta {
+    font-size: $font-size-small;
+    color: $color-secondary;
+  }
+}
+
+// ─── ACTIVITY LOG ─────────────────────────────────────────────
+.admin-log {
+  display: flex;
+  flex-direction: column;
+
+  &__item {
+    display: flex;
+    align-items: flex-start;
+    gap: $spacing-md;
+    padding: $spacing-sm 0;
+    border-bottom: 1px solid $color-accent;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 5px;
+
+    &--green  { background: #2E7D4F; }
+    &--blue   { background: $color-secondary; }
+    &--danger { background: $color-danger; }
+    &--gray   { background: $color-accent; border: 1px solid $color-secondary; }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+  }
+
+  &__text {
+    font-size: $font-size-base;
+    color: $color-dark;
+    line-height: 1.4;
+  }
+
+  &__time {
+    font-size: $font-size-small;
+    color: $color-secondary;
+  }
+}
+
+// ─── UTILITIES ────────────────────────────────────────────────
+.admin-loading {
+  color: $color-secondary;
+  font-size: $font-size-base;
+  text-align: center;
+  padding: $spacing-lg 0;
+}
+
+.admin-error {
+  color: $color-danger;
+  font-size: $font-size-base;
+  text-align: center;
+  padding: $spacing-lg 0;
+}
+
+.admin-panel__count {
+  font-size: $font-size-small;
+  color: $color-secondary;
+  font-weight: 500;
+}
+
+.admin-table__bold {
+  color: $color-primary;
+  font-weight: 600;
+}
+
+.admin-table__desc {
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// ─── ADMIN FOOTER STATUS DOT ──────────────────────────────────
+.admin-footer__status-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #2E7D4F;
+  margin-right: 6px;
+  vertical-align: middle;
+  animation: admin-pulse 2s ease-in-out infinite;
+}
+
+@keyframes admin-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+.header--admin {
+  background-color: #2E7D4F;
+}
+
+.footer--admin {
+  background-color: #2E7D4F;
+}

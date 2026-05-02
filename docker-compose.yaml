@@ -1,0 +1,64 @@
+services:
+  # Base de Datos (SQL Server, igual que usa el backend)
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-CU21-ubuntu-20.04
+    container_name: oliver_db
+    restart: always
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=yourStrong(!)Password
+      - MSSQL_PID=Express
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    networks:
+      - backend
+
+  # Inicialización automática de la BD
+  db-init:
+    image: mcr.microsoft.com/mssql/server:2019-CU21-ubuntu-20.04
+    depends_on:
+      - sqlserver
+    volumes:
+      - ./TimelapseAPI/createDbSqlServer.sql:/init/createDb.sql
+      - ./init-db.sh:/init-db.sh
+    entrypoint: /bin/bash /init-db.sh
+    networks:
+      - backend
+
+  # Backend (.NET 8)
+  api:
+    build:
+      context: ./TimelapseAPI
+      dockerfile: Dockerfile
+    container_name: oliver_api
+    depends_on:
+      - sqlserver
+    ports:
+      - "5000:5000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__TimelapseDB=Server=sqlserver;Database=TimelapseDB;User Id=sa;Password=yourStrong(!)Password;TrustServerCertificate=True;
+    networks:
+      - backend
+    restart: unless-stopped
+
+  # Frontend (Vue)
+  frontend:
+    build:
+      context: ./timelapse-vue
+      dockerfile: Dockerfile
+    container_name: oliver_web
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
+    networks:
+      - backend
+
+networks:
+  backend:
+
+volumes:
+  sqlserver_data:
