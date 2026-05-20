@@ -6,7 +6,6 @@ using TimelapseAPI.Models;
 
 namespace TimelapseAPI.Repositories
 {
-
     public class ComentarioRepository : IComentarioRepository
     {
         private readonly string _connectionString;
@@ -23,7 +22,7 @@ namespace TimelapseAPI.Repositories
             using var conn = new SqlConnection(_connectionString);
             await conn.OpenAsync();
 
-            string query = "SELECT id_comentario, texto, fecha_comentario, id_usuario, id_capsula FROM Comentario";
+            string query = "SELECT id_comentario, texto, fecha_comentario, id_usuario FROM Comentario";
             using var cmd = new SqlCommand(query, conn);
             using var reader = await cmd.ExecuteReaderAsync();
 
@@ -34,8 +33,7 @@ namespace TimelapseAPI.Repositories
                     IdComentario = reader.GetInt32(0),
                     Texto = reader.GetString(1),
                     FechaComentario = reader.GetDateTime(2),
-                    IdUsuario = reader.GetInt32(3),
-                    IdCapsula = reader.GetInt32(4)
+                    IdUsuario = reader.GetInt32(3)
                 });
             }
 
@@ -47,7 +45,7 @@ namespace TimelapseAPI.Repositories
             using var conn = new SqlConnection(_connectionString);
             await conn.OpenAsync();
 
-            string query = "SELECT id_comentario, texto, fecha_comentario, id_usuario, id_capsula FROM Comentario WHERE id_comentario=@id";
+            string query = "SELECT id_comentario, texto, fecha_comentario, id_usuario FROM Comentario WHERE id_comentario=@id";
             using var cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@id", id);
 
@@ -59,8 +57,7 @@ namespace TimelapseAPI.Repositories
                     IdComentario = reader.GetInt32(0),
                     Texto = reader.GetString(1),
                     FechaComentario = reader.GetDateTime(2),
-                    IdUsuario = reader.GetInt32(3),
-                    IdCapsula = reader.GetInt32(4)
+                    IdUsuario = reader.GetInt32(3)
                 };
             }
 
@@ -73,15 +70,14 @@ namespace TimelapseAPI.Repositories
             await conn.OpenAsync();
 
             string query = @"
-                INSERT INTO Comentario (texto, fecha_comentario, id_usuario, id_capsula)
+                INSERT INTO Comentario (texto, fecha_comentario, id_usuario)
                 OUTPUT INSERTED.id_comentario
-                VALUES (@texto, @fechaComentario, @idUsuario, @idCapsula)";
+                VALUES (@texto, @fechaComentario, @idUsuario)";
 
             using var cmd = new SqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@texto", comentario.Texto);
             cmd.Parameters.AddWithValue("@fechaComentario", comentario.FechaComentario);
             cmd.Parameters.AddWithValue("@idUsuario", comentario.IdUsuario);
-            cmd.Parameters.AddWithValue("@idCapsula", comentario.IdCapsula);
 
             comentario.IdComentario = (int)await cmd.ExecuteScalarAsync();
             return comentario;
@@ -94,7 +90,7 @@ namespace TimelapseAPI.Repositories
 
             string query = @"
                 UPDATE Comentario
-                SET texto=@texto, fecha_comentario=@fechaComentario, id_usuario=@idUsuario, id_capsula=@idCapsula
+                SET texto=@texto, fecha_comentario=@fechaComentario, id_usuario=@idUsuario
                 WHERE id_comentario=@id";
 
             using var cmd = new SqlCommand(query, conn);
@@ -102,7 +98,6 @@ namespace TimelapseAPI.Repositories
             cmd.Parameters.AddWithValue("@texto", comentario.Texto);
             cmd.Parameters.AddWithValue("@fechaComentario", comentario.FechaComentario);
             cmd.Parameters.AddWithValue("@idUsuario", comentario.IdUsuario);
-            cmd.Parameters.AddWithValue("@idCapsula", comentario.IdCapsula);
 
             int rows = await cmd.ExecuteNonQueryAsync();
             return rows > 0 ? comentario : null;
