@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TimelapseAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f88c1157aea22c2263d6f86a14e326f20b624a09")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+902eab1d980c7f660e9d81a22aea48709e848566")]
 [assembly: System.Reflection.AssemblyProductAttribute("TimelapseAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TimelapseAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
