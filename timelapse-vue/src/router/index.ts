@@ -18,7 +18,8 @@ const routes: RouteRecordRaw[] = [
     name: 'Admin',
     component: () => import('@/views/AdminView.vue'),
     meta: { requiresAdmin: true }
-  }
+  },
+  { path: '/tablon', name: 'Tablon', component: () => import('@/views/Tablon.vue') }
 ]
 
 const router = createRouter({
