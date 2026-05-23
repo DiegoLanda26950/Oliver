@@ -7,11 +7,11 @@
       title="Inicio"
     >★</RouterLink>
     <RouterLink
-      to="/explorar"
+      to="/tablon"
       class="nav-bottom__btn"
-      :class="{ 'nav-bottom__btn--active': route.name === 'Explorar' }"
-      title="Explorar"
-    >★</RouterLink>
+      :class="{ 'nav-bottom__btn--active': route.name === 'Tablon' }"
+      title="Tablón"
+    >💬</RouterLink>
     <RouterLink
       to="/notificaciones"
       class="nav-bottom__btn"
