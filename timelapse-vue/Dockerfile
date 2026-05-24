@@ -9,6 +9,9 @@ COPY package*.json ./
 # Instalamos todas las dependencias
 RUN npm install
 
+# Instalamos vite globalmente para asegurarnos de que está disponible
+RUN npm install -g vite
+
 # Instalamos npm-run-all de forma global para que el comando 'run-p' esté disponible
 RUN npm install -g npm-run-all
 
